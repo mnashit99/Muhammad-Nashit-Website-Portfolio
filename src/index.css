@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes pulse-subtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+}
+
+@layer base {
+  :root {
+    --background: 220 30% 98%;
+    --foreground: 224 45% 12%;
+
+    --card: 0 0% 100%;
+
+    --primary: 255 75% 62%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 224 45% 15%;
+
+    --muted-foreground: 220 15% 45%;
+
+    --border: 220 20% 88%;
+    --accent: 260 80% 65%;
+  }
+
+  .dark {
+    --background: 230 35% 6%;
+    --foreground: 215 30% 94%;
+
+    --card: 232 30% 9%;
+
+    --primary: 255 85% 68%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 230 25% 14%;
+    --secondary-foreground: 215 30% 92%;
+
+    --muted-foreground: 218 18% 62%;
+
+    --border: 230 25% 18%;
+    --accent: 260 85% 72%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  /* Lenis smooth scrolling harmonization */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300 antialiased selection:bg-primary/30 selection:text-primary;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  /* Sleek custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.6);
+  }
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+
+  @media (width >= 640px) {
+    max-width: 640px;
+  }
+  @media (width >= 768px) {
+    max-width: 768px;
+  }
+  @media (width >= 1024px) {
+    max-width: 1024px;
+  }
+  @media (width >= 1280px) {
+    max-width: 1200px;
+  }
+}
+
+@utility text-glow {
+  text-shadow: 0 0 20px rgba(167, 139, 250, 0.55), 0 0 40px rgba(139, 92, 246, 0.3);
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, hsl(var(--foreground)) 30%, hsl(var(--primary)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility text-gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility glass-panel {
+  background: hsl(var(--card) / 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsl(var(--border) / 0.7);
+}
+
+@utility cosmic-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 0 0 35px 2px rgba(139, 92, 246, 0.7);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
